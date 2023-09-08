@@ -1,4 +1,4 @@
-# README - Custom Bot UI for your Website and Web Chat Integration
+# Custom Bot UI for your Website and Web Chat Integration
 
 **Overview:**
 
