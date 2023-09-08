@@ -2,7 +2,7 @@
 
 **Overview:**
 
-This README provides instructions and information on how to integrate a web chatbot into your website using the provided HTML and JavaScript code.
+This README provides instructions and information on how to integrate a web chatbot into your website with custom UI using the provided HTML ,CSS and JavaScript code.
 
 **Overview:**
 
