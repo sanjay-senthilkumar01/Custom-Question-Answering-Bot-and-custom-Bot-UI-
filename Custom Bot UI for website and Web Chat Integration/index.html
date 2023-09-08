@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+  <style>
+    /*--------------------------------------------------------------
+# Bot
+--------------------------------------------------------------*/
+
+#webchat-container {
+  position: fixed;
+  bottom: 15px;
+  right: 25px;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out, width 0.3s ease-in-out;
+  z-index: 9999;
+  /*background-image: url('../img/Bot3.png'); 
+  background-size: cover; 
+  background-repeat: no-repeat; */
+
+  background: linear-gradient(to bottom, #1f1c2c, #000000);
+
+
+
+}
+
+#webchat-cover {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  border-radius: 20px;
+  background-color: rgb(22, 21, 21);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#cover-name {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#webchat-header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: black;
+  color: grey;
+  border-bottom: 1px solid grey;
+}
+
+#webchat-logo {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+#webchat {
+  max-height: 322px; 
+  overflow-y: scroll; 
+}
+
+/* Media of bot*/
+@media screen and (max-width: 500px) {
+  #webchat-container {
+    bottom: 10px;
+    right: 10px;
+    
+    border-radius: 10px; 
+  }
+  
+  #webchat-cover {
+    width: 40px; 
+    height: 40px;
+
+  }
+  
+  #cover-name {
+    
+  }
+  
+  #webchat {
+    max-height: 314px; 
+  }
+  
+  #webchat-logo {
+    width: 20px; 
+    height: 20px;
+    margin-left: 5px; 
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  
+  <div id="webchat-container">
+    <div id="webchat-cover" onclick="expandBot()">
+      <span id="cover-name" style="font-family: forum ;">QA_Bot</span>
+    </div>
+    <div id="webchat-header">
+      <span>QA Bot</span>
+      <img id="webchat-logo" src="your_logo.png" alt="Neura Logo">
+    </div>
+    <div id="webchat" role="main" style="display: none;">
+      <img src="your_logo.png" alt="Bot Avatar" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 10px; float: left;">
+    </div>
+  </div>
+  <script>
+    let isChatting = false;
+    let resizingTimeout;
+
+    function expandBot() {
+      if (!isChatting) {
+    document.getElementById('webchat-cover').style.display = 'none';
+    document.getElementById('webchat-header').style.display = 'flex';
+    document.getElementById('webchat').style.display = 'block';
+    isChatting = true;
+
+    // Adjust the sizing based on screen width
+    if (window.innerWidth <= 768) {
+      document.getElementById('webchat-container').style.height = '40%';
+      document.getElementById('webchat-container').style.width = '60%';
+    } else {
+      document.getElementById('webchat-container').style.height = '50%';
+      document.getElementById('webchat-container').style.width = '25%';
+    }
+
+    startResizingTimeout();
+  }
+}
+
+    const styleSet = window.WebChat.createStyleSet({
+      bubbleBackground: 'linear-gradient(to bottom, #1f1c2c, #000000)',
+      bubbleFromUserBackground: 'linear-gradient(to bottom, #1f1c2c, #000000)',
+      bubbleBorderRadius: 5,
+      bubbleFromUserBorderRadius: 5,
+      backgroundColor: 'transparent'
+    });
+
+    styleSet.textContent = {
+      ...styleSet.textContent,
+      fontFamily: 'forum',
+      fontWeight: 'Normal',
+      color: 'white',
+      
+      
+    };
+
+    const webchatContainer = document.getElementById('webchat-container');
+    const webchat = document.getElementById('webchat');
+
+    
+    
+    // Prevent scrolling on the website when the mouse is over the chatbot container
+    webchatContainer.addEventListener('mouseenter', () => {
+      document.body.style.overflow = 'hidden';
+    });
+
+    webchatContainer.addEventListener('mouseleave', () => {
+      document.body.style.overflow = '';
+    });
+
+    webchat.addEventListener('wheel', (event) => {
+      event.stopPropagation();
+    });
+
+    
+
+    const resetToInitialSize = () => {
+  isChatting = false;
+
+  // Determine screen dimensions
+  const screenWidth = window.innerWidth;
+
+  // Set initial size based on screen dimensions (adjust values as needed)
+  if (screenWidth <= 768) {
+    // For mobile
+    webchatContainer.style.width = '40px';
+    webchatContainer.style.height = '40px';
+  } else {
+    // For larger screens
+    webchatContainer.style.width = '75px';
+    webchatContainer.style.height = '75px';
+  }
+
+  document.getElementById('webchat-cover').style.display = 'flex';
+  document.getElementById('webchat-header').style.display = 'none';
+  document.getElementById('webchat').style.display = 'none';
+};
+
+    const startResizingTimeout = () => {
+      clearTimeout(resizingTimeout);
+      resizingTimeout = setTimeout(resetToInitialSize, 300000); // 30 seconds
+    };
+
+    document.addEventListener('click', (event) => {
+      if (!webchatContainer.contains(event.target)) {
+        resetToInitialSize();
+      }
+    });
+
+    window.WebChat.renderWebChat({
+      directLine: window.WebChat.createDirectLine({
+        token: 'Your direct line key here'
+      }),
+      styleSet
+    
+
+    }, webchat);
+
+  </script>
+</body>
+</html>
