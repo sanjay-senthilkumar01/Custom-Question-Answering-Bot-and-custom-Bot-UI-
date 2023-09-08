@@ -1,4 +1,7 @@
-# Custom Question Answering
+# Custom Question Answering Bot
+## Neura_QA_bot
+
+Neura a QA bot for Neural Inverse website support for the Question regarding Neural Inverse ,With the bot's source code, anyone can create their own bot QA similar to Neura in [Neuralinverse.live](https://neuralinverse.live) 
 
 Bot Framework v4 Custom question answering bot sample. This sample demonstrates usage of advanced features of Custom question answering like [Precise answering][PA], support for unstructured sources along with [Multi-turn conversations][MT] and [Active Learning][AL] in a bot.
 
